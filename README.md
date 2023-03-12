@@ -61,3 +61,15 @@ prefixes for the commands: `list`, `todo`
   }
 ]
 ```
+
+## Usage instructions
+```bash
+# Install dependencies & create a virutalenv using pipenv
+pipenv install
+
+# Enter into the virtualenv
+pipenv shell
+
+# Run the application
+python app.py
+```
