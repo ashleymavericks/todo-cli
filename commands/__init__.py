@@ -7,5 +7,9 @@ commands_dict = {
     'use': lists.use_list,
     'create': lists.create_list,
     'add': todos.add_item,
-    'all': todos.show_items
+    'all': todos.show_items,
+    'edit': todos.edit_item,
+    'remove': todos.remove_item,
+    'complete': todos.mark_item_complete,
+    'incomplete': todos.mark_item_incomplete
 }
