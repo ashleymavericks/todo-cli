@@ -4,9 +4,7 @@ from rich.console import Console
 
 console = Console()
 
-# * takes the command as input and returns command_name and command_args
-
-
+# takes the command as input and returns command_name and command_args
 def parse(command):
     cmd_list = command.split()
     cmd_type = cmd_list[0]
