@@ -64,7 +64,10 @@ prefixes for the commands: `list`, `todo`
 
 ## Usage instructions
 ```bash
-# Install dependencies & create a virutalenv using pipenv
+# clone the repo & navigate to the root directory that contains the Pipfile
+git clone https://github.com/ashleymavericks/todo-cli.git && cd todo-cli
+
+# Install dependencies & create a virutal environment using pipenv
 pipenv install
 
 # Enter into the virtualenv
