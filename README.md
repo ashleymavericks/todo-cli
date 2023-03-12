@@ -19,6 +19,7 @@ prefixes for the commands: `list`, `todo`
 
 - `list show` -> show all the todo lists
 - `list create list_name` -> create a list with list_name
+- `list use list_name` -> start using a particular list
 - `todo add todo_title` -> add a todo item in the selected list
 - `todo all` -> show all todos in the selected list
 - `todo edit item_id new_title` -> edit the todo item with id=item_id
@@ -26,7 +27,7 @@ prefixes for the commands: `list`, `todo`
 - `todo complete item_id` -> mark a todo item with id=item_id as complete
 - `todo incomplete item_id` -> mark a todo item with id=item_id as incomplete
 - `help` -> print all the commands provided by the app
-- `quit` -> exit the application
+- `quit` or `exit` -> exit the application
 
 ## JSON schema
 
