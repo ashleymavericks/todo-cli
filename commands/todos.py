@@ -4,13 +4,12 @@ from datetime import datetime
 from rich.table import Table
 from rich.console import Console
 
+ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+JSON_DIR = os.path.join(ROOT_DIR, 'database', 'lists')
+
 console = Console()
 
-ROOT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
-JSON_DIR = os.path.join(ROOT_DIR, 'storage', 'work.json')
-
-
+# Deserialized data from todo list JSON file to Python object
 def get_data(list_name):
     data = []
     if os.path.getsize(list_name) != 0:
@@ -19,31 +18,33 @@ def get_data(list_name):
     return data
 
 
-def write_data(list_name, data):
-    with open(list_name, 'w') as todo_list:
-        json.dump(data, todo_list, indent=True, sort_keys=True)
+# Update todo list JSON file with new_data serialized into JSON string
+def update_data(list_name, new_data):
+    with open(f'{JSON_DIR}/{list_name}', 'w') as todo_list:
+        json.dump(new_data, todo_list, indent=True, sort_keys=True)
 
 
 def add_item(args):
-    today_date = str(datetime.today().strftime('%d-%b-%y %H:%M:%S'))
-    data = get_data(JSON_DIR)
+    list_name = args[0]
+    data = get_data(f'{JSON_DIR}/{list_name}')
     data.append({
-        'title': ' '.join(args),
+        'title': ' '.join(args[1:]),
         'completed': False,
-        'created_at': today_date
+        'created_at': datetime.now().strftime('%d-%b-%y %H:%M:%S')
     })
-    write_data(JSON_DIR, data)
+    update_data(list_name, data)
     console.print("Successfully added todo item!", style="bold green")
 
 
 def show_items(args):
-    data = get_data(JSON_DIR)
+    list_name = args[0]
+    data = get_data(f'{JSON_DIR}/{list_name}')
     if len(data) == 0:
         console.print(
             "No todo item in this list, try to add one!", style="bold red")
 
     completed = 0
-    table = Table(title="Todo List")
+    table = Table(title=list_name.replace('.json',''))
     table.add_column("Id")
     table.add_column("Task Name")
     table.add_column("Status")
@@ -55,16 +56,17 @@ def show_items(args):
         if todo_item['completed'] == True:
             completed += 1
         table.add_row(str(index + 1), todo_item['title'], todo_status)
-        
+
     console.print(table)
     console.print(f"{completed}/{len(data)} todos completed!",
                   style="bold blue")
 
 
 def edit_item(args):
-    item_id = int(args[0])
-    new_title = ' '.join(args[1:])
-    data = get_data(JSON_DIR)
+    list_name = args[0]
+    item_id = int(args[1])
+    new_title = ' '.join(args[2:])
+    data = get_data(f'{JSON_DIR}/{list_name}')
     for index, todo_item in enumerate(data):
         if item_id - 1 == index:
             if not new_title.strip():
@@ -72,7 +74,7 @@ def edit_item(args):
                     "Sorry, can't keep a blank todo, try again!", style="bold yellow")
             else:
                 todo_item['title'] = new_title
-                write_data(JSON_DIR, data)
+                update_data(list_name, data)
                 console.print("Successfully edited the todo item!",
                               style="bold green")
             break
@@ -82,11 +84,12 @@ def edit_item(args):
 
 
 def remove_item(args):
-    item_id = int(args[0]) - 1
-    data = get_data(JSON_DIR)
+    list_name = args[0]
+    item_id = int(args[1]) - 1
+    data = get_data(f'{JSON_DIR}/{list_name}')
     if item_id < len(data):
         data.pop(item_id)
-        write_data(JSON_DIR, data)
+        update_data(list_name, data)
         console.print('Successfully removed todo item!', style="bold green")
     else:
         console.print(
@@ -94,8 +97,9 @@ def remove_item(args):
 
 
 def mark_item_complete(args):
-    item_id = int(args[0])
-    data = get_data(JSON_DIR)
+    list_name = args[0]
+    item_id = int(args[1])
+    data = get_data(f'{JSON_DIR}/{list_name}')
     for index, todo_item in enumerate(data):
         if item_id - 1 == index:
             if todo_item['completed'] == True:
@@ -103,7 +107,7 @@ def mark_item_complete(args):
                               style="bold yellow")
             else:
                 todo_item['completed'] = True
-                write_data(JSON_DIR, data)
+                update_data(list_name, data)
                 console.print('Todo marked completed!',
                               style="bold green")
             break
@@ -113,8 +117,9 @@ def mark_item_complete(args):
 
 
 def mark_item_incomplete(args):
-    item_id = int(args[0])
-    data = get_data(JSON_DIR)
+    list_name = args[0]
+    item_id = int(args[1])
+    data = get_data(f'{JSON_DIR}/{list_name}')
     for index, todo_item in enumerate(data):
         if item_id - 1 == index:
             if todo_item['completed'] == False:
@@ -122,7 +127,7 @@ def mark_item_incomplete(args):
                               style="bold yellow")
             else:
                 todo_item['completed'] = False
-                write_data(JSON_DIR, data)
+                update_data(list_name, data)
                 console.print('Todo marked incomplete!', style="bold green")
             break
     else:

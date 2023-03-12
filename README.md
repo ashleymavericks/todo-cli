@@ -5,13 +5,18 @@ A simple to-do list application that can be accessed via a Command-Line Interfac
 </div>
 
 ---
+## Visuals
+Show all todo lists | List all todo's
+:-------------------------:|:-------------------------:
+![](assets/show_todo_lists.png) | ![](assets/list_all_todos.png)
 
 ## Features
 
 - Create a todo list
 - Show all the todo lists
-- Add, edit, delete, mark as complete, incomplete etc the todo items present in those lists
-- Show all the todo items in a particular items
+- Add, edit, delete, mark as complete, incomplete the todo items present in those lists
+- Show all the todo items in a particular list
+- Todo's completion data insights
 
 ## Commands to use the CLI app
 

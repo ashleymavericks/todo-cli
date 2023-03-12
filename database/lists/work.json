@@ -1,0 +1,17 @@
+[
+ {
+  "completed": true,
+  "created_at": "13-Mar-23 03:45:35",
+  "title": "complete todo cli app"
+ },
+ {
+  "completed": true,
+  "created_at": "13-Mar-23 03:46:05",
+  "title": "add beautiful tables using rich"
+ },
+ {
+  "completed": false,
+  "created_at": "13-Mar-23 03:47:07",
+  "title": "implement drop todo-list feature"
+ }
+]
