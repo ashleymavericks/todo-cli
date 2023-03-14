@@ -13,10 +13,12 @@ Show all todo lists | List all todo's
 ## Features
 
 - Create a todo list
+- Remove an existing todo list
 - Show all the todo lists
 - Add, edit, delete, mark as complete, incomplete the todo items present in those lists
 - Show all the todo items in a particular list
 - Todo's completion data insights
+- Beautiful table layouts powered by [rich](https://github.com/Textualize/rich) library
 
 ## Commands to use the CLI app
 
