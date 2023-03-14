@@ -59,8 +59,14 @@ def main():
                 - [bold yellow]help[/] -> print all the commands provided by the app
                 - [bold yellow]quit[/] or [bold yellow]exit[/] -> exit the application
                     """, style="white")
+
+            elif command_name == 'invalid':
+                console.print(
+                    "Please enter a valid [bold red]todo[/] command, use [bold red]help[/] command for reference!", style="bold yellow")
+
             elif command_name == 'use':
                 current_list = commands_dict[command_name](command_arg)
+
             elif command_name == 'drop':
                 deleted_list = commands_dict[command_name](command_arg)
 
@@ -71,7 +77,8 @@ def main():
                         console.print(
                             "Nudge: Currently no list is selected, check [blue]list use[/] command", style="magenta")
                 except:
-                    console.print("Nudge: Currently no list is selected, check [blue]list use[/] command", style="magenta")
+                    console.print(
+                        "Nudge: Currently no list is selected, check [blue]list use[/] command", style="magenta")
 
             elif command_type == 'todo':
                 try:
