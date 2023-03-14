@@ -5,6 +5,8 @@ from rich.console import Console
 console = Console()
 
 # takes the command as input and returns command_name and command_args
+
+
 def parse(command):
     cmd_list = command.split()
     cmd_type = cmd_list[0]
@@ -12,7 +14,7 @@ def parse(command):
         return cmd_type, []
     elif cmd_type == 'list':
         cmd_name = cmd_list[1]
-        if cmd_name in ['show', 'create', 'use']:
+        if cmd_name in ['show', 'create', 'use', 'drop']:
             #!  cmd_list[2:] -> to prevent list index out of bound in case of no args
             return cmd_name, cmd_list[2:]
         else:
@@ -43,6 +45,7 @@ def main():
                 - [bold yellow]list show[/] -> show all the todo lists
                 - [bold yellow]list create list_name[/] -> create a list with list_name
                 - [bold yellow]list use list_name[/] -> start using a particular list
+                - [bold yellow]list drop list_name[/] -> remove a particular list
                 
             [bold red]Commands to manipulate todo[/]:
                 - [bold yellow]todo add todo_title[/] -> add a todo item in the selected list
@@ -58,6 +61,18 @@ def main():
                     """, style="white")
             elif command_name == 'use':
                 current_list = commands_dict[command_name](command_arg)
+            elif command_name == 'drop':
+                deleted_list = commands_dict[command_name](command_arg)
+
+                # handling the edge case when user will drop a list and no particular list is being used
+                try:
+                    if deleted_list == current_list:
+                        current_list = ''
+                        console.print(
+                            "Nudge: Currently no list is selected, check [blue]list use[/] command", style="magenta")
+                except:
+                    console.print("Nudge: Currently no list is selected, check [blue]list use[/] command", style="magenta")
+
             elif command_type == 'todo':
                 try:
                     command_arg.insert(0, current_list)
@@ -69,7 +84,7 @@ def main():
                 commands_dict[command_name](command_arg)
         except:
             console.print(
-                "Please enter a valid command, use help command to display all!", style="bold yellow")
+                "Please enter a valid command, use [bold red]help[/] command for reference!", style="bold yellow")
 
 
 if __name__ == '__main__':

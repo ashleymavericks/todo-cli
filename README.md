@@ -25,6 +25,7 @@ prefixes for the commands: `list`, `todo`
 - `list show` -> show all the todo lists
 - `list create list_name` -> create a list with list_name
 - `list use list_name` -> start using a particular list
+- `list drop list_name` -> remove a particular list
 - `todo add todo_title` -> add a todo item in the selected list
 - `todo all` -> show all todos in the selected list
 - `todo edit item_id new_title` -> edit the todo item with id=item_id
@@ -70,7 +71,7 @@ git clone https://github.com/ashleymavericks/todo-cli.git && cd todo-cli
 # Install dependencies & create a virutal environment using pipenv
 pipenv install
 
-# Enter into the virtualenv
+# Activate the virtual environment
 pipenv shell
 
 # Run the application
